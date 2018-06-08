@@ -1,12 +1,13 @@
 package = "luahaml"
-version = "0.1.0"
+version = "0.1.0-0"
 source = {
-   url = "git://github.com/norman/lua-haml.git",
+   url = "http://cloud.github.com/downloads/norman/lua-haml/lua-haml-0.1.0-0.tar.gz",
+   md5 = "a3fb8b0032a08965690a84fe43c8821c"
 }
 description = {
    summary = "An implementation of the Haml markup language for Lua.",
    detailed = [[
-      Lua Haml is an in-progress implementation of the Haml markup language for Lua.
+      Lua Haml is an implementation of the Haml markup language for Lua.
    ]],
    license = "MIT/X11",
    homepage = "http://github.com/norman/lua-haml"

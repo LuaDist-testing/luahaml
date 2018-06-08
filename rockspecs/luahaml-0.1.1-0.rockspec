@@ -1,17 +1,9 @@
--- This file was automatically generated for the LuaDist project.
-
 package = "luahaml"
-version = "0.1.0-1"
--- LuaDist source
+version = "0.1.1-0"
 source = {
-  tag = "0.1.0-1",
-  url = "git://github.com/LuaDist-testing/luahaml.git"
+   url = "http://cloud.github.com/downloads/norman/lua-haml/lua-haml-0.1.1-0.tar.gz",
+   md5 = "db7aa1a5bc8669240f1b00f787a488d5"
 }
--- Original source
--- source = {
---    url = "http://cloud.github.com/downloads/norman/lua-haml/lua-haml-0.1.0-0.tar.gz",
---    md5 = "a3fb8b0032a08965690a84fe43c8821c"
--- }
 description = {
    summary = "An implementation of the Haml markup language for Lua.",
    detailed = [[

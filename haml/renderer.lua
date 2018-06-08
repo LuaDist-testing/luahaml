@@ -16,6 +16,7 @@ local setmetatable = setmetatable
 local sorted_pairs = ext.sorted_pairs
 local tostring     = tostring
 local type         = type
+local rawset       = rawset
 
 module "haml.renderer"
 
@@ -98,7 +99,7 @@ function methods:make_partial_func()
   local haml = require "haml"
   return function(file, locals)
     local engine   = haml.new(self.options)
-    local rendered = engine:render_file(("%s.haml"):format(file), locals)
+    local rendered = engine:render_file(("%s.haml"):format(file), locals or renderer.env.locals)
     -- if we're in a partial, by definition the last entry added to the buffer
     -- will be the current spaces
     return rendered:gsub("\n", "\n" .. self.buffer[#self.buffer])
@@ -120,7 +121,9 @@ function methods:render(locals)
 
   setmetatable(self.env, {__index = function(table, key)
     return locals[key] or _G[key]
-  end})
+  end,
+  __newindex = function(table, key, val) rawset(locals, key, val) end
+  })
 
   local succeeded, err = pcall(self.func)
   if not succeeded then

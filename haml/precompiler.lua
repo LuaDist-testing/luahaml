@@ -97,10 +97,10 @@ function methods:close_tags(func)
   if self:indent_diff() < 0 then
     local i = self:indent_diff()
     repeat
-      if func and func(self.endings:last()) then return end
+      if func and not func(self.endings:last()) then return end
         self:close_current()
       i = i + 1
-    until i == 0
+    until i >= 0
   end
 end
 
@@ -117,6 +117,11 @@ function methods:close_current()
   if ending:match "^<" then
     self.buffer:string(self:indents() .. ending, {newline = true})
   else
+
+    if (not self.next_phrase) or self.next_phrase.code then
+      ending = "end"
+    end
+
     self.buffer:code(ending)
   end
   if callback then callback(self) end

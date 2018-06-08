@@ -2,11 +2,11 @@
 
 ## About
 
-Lua Haml is an implementation of the [Haml](http://haml-lang.com) markup
+Lua Haml is an implementation of the [Haml](http://haml.info) markup
 language for Lua.
 
 A Haml language reference can be found
-[here](http://haml-lang.com/docs/yardoc/HAML_REFERENCE.md.html).
+[here](http://haml.info/docs/yardoc/file.HAML_REFERENCE.html).
 
 Lua Haml implements almost 100% of Ruby Haml, and attempts to be as compatible
 as possible with it, with the following exceptions:
@@ -28,18 +28,56 @@ most of Lua Haml's features.
 
 ## TODO
 
-Lua Haml is now feature complete, but has not been formally released. At the
-moment, error checking and reporting are a bit weak, so if you have errors in
-your Haml template they can be hard to track down.
+Lua Haml is now feature complete, but is still considered beta quality. That
+said, I am using it for a production website, and will work quickly to fix any
+bugs that are reported.  So please feel free to use it for serious work - just
+not the Space Shuttle, ok?
 
-Once I've had a chance to improve this area of the code, then I'll do a stable
-release.
 
 ## Getting it
 
-The easiest way to install is from the current Git master using LuaRocks:
+The easiest way to install is via LuaRocks:
 
-    luarocks build http://github.com/norman/lua-haml/raw/master/luahaml-scm-1.rockspec
+    luarocks install luahaml
+
+You can also always install the latest master branch from Git via Luarocks:
+
+    luarocks install luahaml --from=http://luarocks.org/repositories/rocks-cvs
+
+## Installing without Luarocks
+
+If you do not wish to use Luarocks, just put `haml.lua` and the `haml` directories
+somewhere on your package path, and place `luahaml` somewhere in your execution
+path.
+
+Here's one of many ways you could do this:
+
+    git clone git://github.com/norman/lua-haml.git
+    cd lua-haml
+    cp bin/luahaml ~/bin
+    cp -rp haml haml.lua /usr/local/my_lua_libs_dir
+    export LUA_PATH=";;/usr/local/my_lua_libs_dir/?.lua"
+
+Note that you can also download a .zip or .tar.gz from Github if you do not use
+Git.
+
+
+## Using it in your application
+
+Here's a simple usage example:
+
+    -- in file.haml
+    %p= "Hello, " .. name .. "!"
+
+    -- in your application
+    local haml         = require "haml"
+    local haml_options = {format = "html5"}
+    local engine       = haml.new(options)
+    local locals       = {name = "Joe"}
+    local rendered     = engine:render_file("file.haml", locals)
+
+    -- output
+    <p>Hello, Joe!</p>
 
 ## Hacking it
 
@@ -66,7 +104,8 @@ Please report them on the [Github issue tracker](http://github.com/norman/lua-ha
 ## Thanks
 
 To Hampton Caitlin, Nathan Weizenbaum and Chris Eppstein for their work on the
-original Haml.
+original Haml. Thanks also to Daniele Alessandri for being LuaHaml's earliest
+"real" user, and a source of constant encouragement.
 
 ## License
 
